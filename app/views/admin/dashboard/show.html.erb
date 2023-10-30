@@ -1,2 +1,32 @@
-<h1>Admin::Dashboard#show</h1>
-<p>Find me in app/views/admin/dashboard/show.html.erb</p>
+<!-- Header section for the admin dashboard page -->
+<header class="page-header">
+    <h1>Admin &raquo; Dashboard</h1>
+</header>
+
+<!-- Table to display statistics -->
+<table class="table">
+  <thead class="thead-light">
+    <!-- Table header row -->
+    <tr>
+      <!-- Column headers for 'Type' and 'Count' -->
+      <th scope="col">Type</th>
+      <th scope="col">Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Row for displaying the count of Products -->
+    <tr>
+      <!-- Type: Products -->
+      <th scope="row">Products</th>
+      <!-- Display the number of products obtained from the @products instance variable -->
+      <td><%= @products.size %></td>
+    </tr>
+    <!-- Row for displaying the count of Categories -->
+    <tr>
+      <!-- Type: Categories -->
+      <th scope="row">Categories</th>
+      <!-- Display the number of categories obtained from the @categories instance variable -->
+      <td><%= @categories.size %></td>
+    </tr>
+  </tbody>
+</table>

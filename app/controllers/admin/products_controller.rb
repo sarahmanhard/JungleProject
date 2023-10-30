@@ -1,5 +1,9 @@
 class Admin::ProductsController < ApplicationController
 
+  # Ensure admin authentication using HTTP Basic Authentication.
+  # Admin credentials are set in the environment variables (ENV["ADMIN_NAME"] and ENV["ADMIN_PASSWORD"]).
+  http_basic_authenticate_with name: ENV["ADMIN_NAME"], password: ENV["ADMIN_PASSWORD"]
+ 
   def index
     @products = Product.order(id: :desc).all
   end
