@@ -1,13 +1,56 @@
 <section class="orders-show">
-
+  <!-- Page Header with Order ID and Email -->
   <header class="page-header">
-    <h1>Order #<%= @order.id %></h1>
+    <h1>Order #<%= @order.id %>: <%= @order.email %></h1>
   </header>
 
+  <!-- Order Summary Message -->
   <div class="order-summary jumbotron">
     <h4>Thank you for your order!</h4>
   </div>
 
-  <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
+  <!-- Table to Display Line Items -->
+  <table class="table table-bordered">
+    <thead>
+      <!-- Table Headers -->
+      <tr>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Line total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Loop Through Line Items and Render Each -->
+      <% @order.line_items.each do |line_item| %>
+        <tr>
+          <!-- Product Name -->
+          <td><%= line_item.product.name %></td>
+          <!-- Product Image -->
+          <td><%= image_tag line_item.product.image_url, class: 'img-thumbnail' %></td>
+          <!-- Product Description -->
+          <td><%= line_item.product.description %></td>
+          <!-- Product Price -->
+          <td><%= line_item.product.price %></td>
+          <!-- Quantity Ordered -->
+          <td><%= line_item.quantity %></td>
+          <!-- Line Item Total -->
+          <td><%= line_item.total %></td>
+        </tr>
+      <% end %>
+      <!-- Summary Row for Total Quantity and Total Amount -->
+      <tr class="table-active">
+        <th colspan="4">Total:</th>
+        <!-- Total Quantity of Items -->
+        <td><%= @order.line_items.sum(:quantity) %></td>
+        <!-- Total Order Amount -->
+        <td><%= humanized_money_with_symbol @order.total_cents / 100.0 %></td>
+      </tr>
+    </tbody>
+  </table>
 
+  <!-- Continue Shopping Button -->
+  <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
 </section>

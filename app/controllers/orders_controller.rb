@@ -42,6 +42,11 @@ class OrdersController < ApplicationController
       stripe_charge_id: stripe_charge.id, # returned by stripe
     )
 
+    def show #retrieves required data to display order details on page
+      @order = Order.find(params[:id])
+      @line_items = @order.line_items
+    end
+
     enhanced_cart.each do |entry|
       product = entry[:product]
       quantity = entry[:quantity]
